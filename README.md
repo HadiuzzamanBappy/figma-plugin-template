@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# UX Copywriter - Figma Plugin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Figma plugin built with React + TypeScript + Vite that provides a modern UI for creating and managing text content in Figma.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 Built with React and TypeScript
+- ⚡ Fast development with Vite and HMR
+- 📦 Single-file build optimized for Figma
+- 🎯 Interactive UI with real-time updates
 
-## React Compiler
+## Development
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (latest LTS version recommended)
+- Figma Desktop App
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Install dependencies:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Build the plugin:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
 ```
+
+The built files will be in the `dist/` folder.
+
+### Using in Figma
+
+1. Open Figma Desktop App
+2. Go to **Plugins** → **Development** → **Import plugin from manifest...**
+3. Select `dist/manifest.json` from this project
+4. Run the plugin: **Plugins** → **Development** → **Hello World Plugin**
+
+### Development Workflow
+
+- `npm run dev` - Start Vite dev server (for UI development)
+- `npm run build` - Build the plugin for production
+- `npm run lint` - Lint the code
+
+The plugin uses `vite-plugin-singlefile` to bundle all JS and CSS into a single HTML file that works in Figma's iframe environment.
+
+## Project Structure
+
+```
+src/
+  ├── App.tsx          # Main React component
+  ├── main.tsx         # React entry point
+  ├── App.css          # Component styles
+  └── assets/          # Static assets
+
+public/
+  └── manifest.json    # Figma plugin manifest
+
+dist/                  # Built plugin files
+  ├── manifest.json
+  ├── index.html       # Single-file React bundle
+  └── vite.svg
+```
+
+## Technology Stack
+
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **@vitejs/plugin-react-swc** - Fast Refresh with SWC
+- **vite-plugin-singlefile** - Bundle everything into one HTML file
+- **Figma Plugin API** - Plugin functionality
